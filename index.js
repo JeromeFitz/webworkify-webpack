@@ -111,7 +111,10 @@ module.exports = function (fn) {
 
     var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
-    return new Worker(URL.createObjectURL(
+    var objectUrl = URL.createObjectURL(
         new Blob([src], { type: 'text/javascript' })
-    ));
+    );
+    var w = new Worker(objectUrl);
+    w.objectUrl = objectUrl;
+    return w;
 };
